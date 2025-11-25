@@ -320,7 +320,7 @@ def transcribe_audio(audio_url: str) -> str:
     }
 
     headers = {
-        "Authorization": f"Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IjIzZjMwMDQwOTJAZHMuc3R1ZHkuaWl0bS5hYy5pbiJ9.SVG2zRSEu8jIMmEtZzeHi4PFxx60Q5qP0hgfH6oZ4Mc",
+        "Authorization": f"Bearer {AIPIPE_TOKEN}",
         "Content-Type": "application/json",
     }
 
@@ -381,7 +381,7 @@ def analyze_video(video_url: str, analysis_prompt: str) -> str:
 
 
 model = ChatOpenAI(
-    model="openai/gpt-5-mini",
+    model="gpt-oss-20b:free",
     api_key=AIPIPE_TOKEN,
     base_url="https://aipipe.org/openrouter/v1"   
 )
