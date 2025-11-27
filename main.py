@@ -71,24 +71,6 @@ def current_time() -> str:
 
 
 
-"""from langchain_community.tools.playwright.utils import (
-    create_async_playwright_browser,  # A synchronous browser is available, though it isn't compatible with jupyter.\n",   },
-)
-# This import is required only for jupyter notebooks, since they have their own eventloop
-import nest_asyncio
-
-nest_asyncio.apply()
-
-async_browser = create_async_playwright_browser()
-toolkit = PlayWrightBrowserToolkit.from_browser(async_browser=async_browser)
-tools = toolkit.get_tools()
-tools
-
-#from dotenv import load_dotenv
-from langchain_community.agent_toolkits import PlayWrightBrowserToolkit
-toolkit = PlayWrightBrowserToolkit()
-tools = toolkit.get_tools()
-tools"""
 
 import os
 import httpx 
@@ -148,35 +130,7 @@ import requests
 import os
 import uuid
 
-@tool
-def download_file(url: str) -> dict:
-    """Download ANY file from a URL and save it locally.
-    Returns: {"file_path": "...", "file_name": "...", "mime_type": "..."}"""
 
-    response = requests.get(url, stream=True)
-    response.raise_for_status()
-
-    # Generate unique file name
-    file_name = url.split("/")[-1]
-    if not file_name:
-        file_name = f"file_{uuid.uuid4().hex}"
-
-    # Ensure a safe local path
-    save_path = os.path.join(os.getcwd(), file_name)
-
-    # Save the file
-    with open(save_path, "wb") as f:
-        for chunk in response.iter_content(chunk_size=8192):
-            f.write(chunk)
-
-    # Detect mime type
-    mime_type = response.headers.get("Content-Type", "unknown")
-
-    return {
-        "file_path": save_path,
-        "file_name": file_name,
-        "mime_type": mime_type
-    }
 
 
 
@@ -189,19 +143,6 @@ def get_weather(city: str) -> str:
 
 
 
-"""@tool
-def scrape_page(url):
-   
-    print("Scraping website")
-    
-    with sync_playwright() as p:
-        browser = p.chromium.launch()
-        page = browser.new_page()
-        page.goto(url, wait_until="networkidle")
-        html = page.content()
-        browser.close()
-    return html"""
-    
     
     
 @tool
@@ -446,14 +387,7 @@ agent = create_agent(
 
 
 
-"""result = agent.invoke(
-    {"messages": [
-        {"role": "user", "content": " Your task is at https://tds-llm-analysis.s-anand.net/demo "}
-    ]},
-    config={"callbacks": [LoggingCallback(),logger]}
-)
 
-print(result["messages"][-1].content)"""
 
 
 
